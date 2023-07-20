@@ -141,6 +141,7 @@ public class Ver_Receta extends javax.swing.JFrame {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error : "+e);
         }
+        Limpiar();
     }//GEN-LAST:event_btnRecetaActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -149,6 +150,9 @@ public class Ver_Receta extends javax.swing.JFrame {
         ventana2.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    void Limpiar() {        
+        cbNombreT.setSelectedIndex(0);        
+    }
     /**
      * @param args the command line arguments
      */

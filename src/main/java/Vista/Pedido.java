@@ -17,7 +17,7 @@ public class Pedido extends javax.swing.JFrame {
     public Pedido() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Ver Receta");
+        this.setTitle("Pedido");
         llenarCombo();        
     }
     
@@ -90,12 +90,13 @@ public class Pedido extends javax.swing.JFrame {
     private void initComponents() {
 
         jButton1 = new javax.swing.JButton();
-        cbTorta = new javax.swing.JComboBox<>();
-        txtCantidad = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtInf = new javax.swing.JTextArea();
         btnVolver = new javax.swing.JButton();
+        cbTorta = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        spCantidad = new javax.swing.JSpinner();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -108,17 +109,13 @@ public class Pedido extends javax.swing.JFrame {
         });
         getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(538, 226, 196, 88));
 
-        cbTorta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar torta" }));
-        getContentPane().add(cbTorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 66, 245, 50));
-        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 66, 150, 50));
-
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         txtInf.setColumns(20);
         txtInf.setRows(5);
         jScrollPane1.setViewportView(txtInf);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 390, 350));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 350, 350));
 
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
@@ -126,7 +123,18 @@ public class Pedido extends javax.swing.JFrame {
                 btnVolverActionPerformed(evt);
             }
         });
-        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 170, 70));
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 40, 170, 70));
+
+        cbTorta.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        cbTorta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar torta" }));
+        jPanel1.add(cbTorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 245, 50));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel1.setText("Cantidad: ");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 130, 50));
+
+        spCantidad.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        jPanel1.add(spCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 110, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 600));
 
@@ -164,7 +172,7 @@ public class Pedido extends javax.swing.JFrame {
         }*/
         txtInf.setText("");
         String id_torta = cbTorta.getSelectedItem().toString();
-        Double cant = Double.parseDouble(txtCantidad.getText().trim());
+        Double cant = Double.parseDouble(spCantidad.getValue().toString());
 
         try {
             Connection conexion = conectar.conectar();
@@ -207,6 +215,7 @@ public class Pedido extends javax.swing.JFrame {
         for (Ingrediente ingrediente : listaIngredientes) {
             txtInf.append(ingrediente.getNombre() + "   " + ingrediente.getCantidad() + " " + ingrediente.getUnidad() + "\n");
         }
+        Limpiar();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
@@ -215,6 +224,10 @@ public class Pedido extends javax.swing.JFrame {
         ventana2.setVisible(true);
     }//GEN-LAST:event_btnVolverActionPerformed
 
+    void Limpiar() {
+        spCantidad.setValue(0);
+        cbTorta.setSelectedIndex(0);        
+    }
     /**
      * @param args the command line arguments
      */
@@ -255,9 +268,10 @@ public class Pedido extends javax.swing.JFrame {
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cbTorta;
     private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtCantidad;
+    private javax.swing.JSpinner spCantidad;
     private javax.swing.JTextArea txtInf;
     // End of variables declaration//GEN-END:variables
 }
