@@ -6,16 +6,19 @@ package Vista;
 
 import java.sql.*;
 import Modelo.*;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 public class NewJFrame extends javax.swing.JFrame {
 
     Conexion conectar = Conexion.getInstance();
+    List<Ingrediente> listaIngredientes = new ArrayList<>();
     
     public NewJFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Ver Receta");
-        llenarCombo();
+        llenarCombo();        
     }
     
     public void llenarCombo(){
@@ -37,6 +40,43 @@ public class NewJFrame extends javax.swing.JFrame {
             
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error : "+e);
+        }
+    }
+       
+    public class Ingrediente {
+
+        private String nombre;
+        private Double cantidad;
+        private String unidad;
+
+        public Ingrediente(String nombre, Double cantidad, String unidad) {
+            this.nombre = nombre;
+            this.cantidad = cantidad;
+            this.unidad = unidad;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+        public Double getCantidad() {
+            return cantidad;
+        }
+
+        public void setCantidad(Double cantidad) {
+            this.cantidad = cantidad;
+        }
+
+        public String getUnidad() {
+            return unidad;
+        }
+
+        public void setUnidad(String unidad) {
+            this.unidad = unidad;
         }
     }
 
@@ -87,39 +127,15 @@ public class NewJFrame extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         /*txtInf.setText("");
         String id_torta = cbTorta.getSelectedItem().toString();
-        Double cant = Double.parseDouble(txtCantidad.getText().trim()); 
-        try {
-            Connection conexion = conectar.conectar();
-            PreparedStatement seleccionar = conexion.prepareStatement("SELECT nombre, cantidad * +cant+, unidad FROM Ingredientes WHERE id_torta = '\"+id_torta+\"';");            
-            //PreparedStatement seleccionar = conexion.prepareStatement("SELECT nombre, cantidad, unidad FROM ingredientes where id_torta = '"+id_torta+"';"); 
-            ResultSet consulta = seleccionar.executeQuery();
-            
-            while(consulta.next()){
-                txtInf.append(consulta.getString(1));
-                txtInf.append("   ");
-                txtInf.append(consulta.getString(2));
-                txtInf.append("   ");
-                txtInf.append(consulta.getString(3));
-                txtInf.append("   ");                
-                txtInf.append("\n");                 
-                
-            }
-            conectar.cerrarConexion();
-            
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Error : "+e);
-        }*/
-        txtInf.setText("");
-        String id_torta = cbTorta.getSelectedItem().toString();
         Double cant = Double.parseDouble(txtCantidad.getText().trim());
 
         try {
             Connection conexion = conectar.conectar();
             PreparedStatement seleccionar = conexion.prepareStatement(
-                    "SELECT nombre, cantidad * cant, unidad FROM Ingredientes WHERE id_torta = '\"+id_torta+\"' ;"
+                    "SELECT nombre, cantidad * ?, unidad FROM Ingredientes WHERE id_torta = ? ;"
             );
-            seleccionar.setDouble(3, cant);
-            seleccionar.setString(5, id_torta);
+            seleccionar.setDouble(1, cant);
+            seleccionar.setString(2, id_torta);
 
             ResultSet consulta = seleccionar.executeQuery();
 
@@ -136,6 +152,51 @@ public class NewJFrame extends javax.swing.JFrame {
             conectar.cerrarConexion();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error: " + e);
+        }*/
+        txtInf.setText("");
+        String id_torta = cbTorta.getSelectedItem().toString();
+        Double cant = Double.parseDouble(txtCantidad.getText().trim());
+
+        try {
+            Connection conexion = conectar.conectar();
+            PreparedStatement buscarTorta = conexion.prepareStatement(
+                    "SELECT id_torta FROM tortas WHERE id_torta = ? ;"
+            );
+            buscarTorta.setString(1, id_torta);
+
+            ResultSet consultaTorta = buscarTorta.executeQuery();
+            if (consultaTorta.next()) {
+                String nombre_torta = consultaTorta.getString(1);
+
+                // Agregar el nombre de la torta a la lista
+                Ingrediente torta = new Ingrediente(nombre_torta, cant, "Tortas");
+                listaIngredientes.add(torta);
+            }
+
+            PreparedStatement seleccionar = conexion.prepareStatement(
+                    "SELECT nombre, cantidad * ?, unidad FROM Ingredientes WHERE id_torta = ? ;"
+            );
+            seleccionar.setDouble(1, cant);
+            seleccionar.setString(2, id_torta);
+
+            ResultSet consulta = seleccionar.executeQuery();
+
+            while (consulta.next()) {
+                String nombre = consulta.getString(1);
+                Double cantidad = consulta.getDouble(2);
+                String unidad = consulta.getString(3);
+
+                Ingrediente ingrediente = new Ingrediente(nombre, cantidad, unidad);
+                listaIngredientes.add(ingrediente);
+            }
+
+            conectar.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+        txtInf.setText("");
+        for (Ingrediente ingrediente : listaIngredientes) {
+            txtInf.append(ingrediente.getNombre() + "   " + ingrediente.getCantidad() + " " + ingrediente.getUnidad() + "\n");
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
