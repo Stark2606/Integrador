@@ -4,19 +4,80 @@
  */
 package Vista;
 
-/**
- *
- * @author USUARIO
- */
+import java.sql.*;
+import Modelo.*;
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.JOptionPane;
 public class Pedido extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Pedido
-     */
+    Conexion conectar = Conexion.getInstance();
+    List<Ingrediente> listaIngredientes = new ArrayList<>();
+    
     public Pedido() {
         initComponents();
         this.setLocationRelativeTo(null);
-        this.setTitle("Hacer Pedidos");
+        this.setTitle("Ver Receta");
+        llenarCombo();        
+    }
+    
+    public void llenarCombo(){
+        String []Datos = new String[1];
+        String texto;
+        
+        try {
+            Connection conexion = conectar.conectar();
+            PreparedStatement buscar = conexion.prepareStatement("SELECT * FROM tortas");
+            ResultSet consulta = buscar.executeQuery();
+            
+            while(consulta.next()){
+                Datos[0] = consulta.getString(1);                
+                texto = Datos[0];
+                cbTorta.addItem(texto);
+                
+            }
+            conectar.cerrarConexion();
+            
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error : "+e);
+        }
+    }
+       
+    public class Ingrediente {
+
+        private String nombre;
+        private Double cantidad;
+        private String unidad;
+
+        public Ingrediente(String nombre, Double cantidad, String unidad) {
+            this.nombre = nombre;
+            this.cantidad = cantidad;
+            this.unidad = unidad;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+        public Double getCantidad() {
+            return cantidad;
+        }
+
+        public void setCantidad(Double cantidad) {
+            this.cantidad = cantidad;
+        }
+
+        public String getUnidad() {
+            return unidad;
+        }
+
+        public void setUnidad(String unidad) {
+            this.unidad = unidad;
+        }
     }
 
     /**
@@ -28,80 +89,125 @@ public class Pedido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        btnVolver = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jSpinner1 = new javax.swing.JSpinner();
-        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
+        cbTorta = new javax.swing.JComboBox<>();
+        txtCantidad = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        txtInf = new javax.swing.JTextArea();
+        btnVolver = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        btnVolver.setFont(new java.awt.Font("Segoe UI", 3, 36)); // NOI18N
+        jButton1.setText("mostrar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(538, 226, 196, 88));
+
+        cbTorta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar torta" }));
+        getContentPane().add(cbTorta, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 66, 245, 50));
+        getContentPane().add(txtCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(376, 66, 150, 50));
+
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        txtInf.setColumns(20);
+        txtInf.setRows(5);
+        jScrollPane1.setViewportView(txtInf);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 170, 390, 350));
+
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnVolverActionPerformed(evt);
             }
         });
+        jPanel1.add(btnVolver, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 170, 70));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccionar Torta" }));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Cantidad: ");
-
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        jScrollPane1.setViewportView(jTable1);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(43, 43, 43)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 408, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 178, Short.MAX_VALUE)
-                        .addComponent(btnVolver, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(56, 56, 56)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnVolver, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jSpinner1)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
-                .addGap(39, 39, 39)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(64, Short.MAX_VALUE))
-        );
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        /*txtInf.setText("");
+        String id_torta = cbTorta.getSelectedItem().toString();
+        Double cant = Double.parseDouble(txtCantidad.getText().trim());
+
+        try {
+            Connection conexion = conectar.conectar();
+            PreparedStatement seleccionar = conexion.prepareStatement(
+                    "SELECT nombre, cantidad * ?, unidad FROM Ingredientes WHERE id_torta = ? ;"
+            );
+            seleccionar.setDouble(1, cant);
+            seleccionar.setString(2, id_torta);
+
+            ResultSet consulta = seleccionar.executeQuery();
+
+            while (consulta.next()) {
+                txtInf.append(consulta.getString(1));
+                txtInf.append("   ");
+                txtInf.append(consulta.getString(2));
+                txtInf.append("   ");
+                txtInf.append(consulta.getString(3));
+                txtInf.append("   ");
+                txtInf.append("\n");
+            }
+
+            conectar.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }*/
+        txtInf.setText("");
+        String id_torta = cbTorta.getSelectedItem().toString();
+        Double cant = Double.parseDouble(txtCantidad.getText().trim());
+
+        try {
+            Connection conexion = conectar.conectar();
+            PreparedStatement buscarTorta = conexion.prepareStatement(
+                    "SELECT id_torta FROM tortas WHERE id_torta = ? ;"
+            );
+            buscarTorta.setString(1, id_torta);
+
+            ResultSet consultaTorta = buscarTorta.executeQuery();
+            if (consultaTorta.next()) {
+                String nombre_torta = consultaTorta.getString(1);
+
+                // Agregar el nombre de la torta a la lista
+                Ingrediente torta = new Ingrediente(nombre_torta, cant, "Tortas");
+                listaIngredientes.add(torta);
+            }
+
+            PreparedStatement seleccionar = conexion.prepareStatement(
+                    "SELECT nombre, cantidad * ?, unidad FROM Ingredientes WHERE id_torta = ? ;"
+            );
+            seleccionar.setDouble(1, cant);
+            seleccionar.setString(2, id_torta);
+
+            ResultSet consulta = seleccionar.executeQuery();
+
+            while (consulta.next()) {
+                String nombre = consulta.getString(1);
+                Double cantidad = consulta.getDouble(2);
+                String unidad = consulta.getString(3);
+
+                Ingrediente ingrediente = new Ingrediente(nombre, cantidad, unidad);
+                listaIngredientes.add(ingrediente);
+            }
+
+            conectar.cerrarConexion();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: " + e);
+        }
+        txtInf.setText("");
+        for (Ingrediente ingrediente : listaIngredientes) {
+            txtInf.append(ingrediente.getNombre() + "   " + ingrediente.getCantidad() + " " + ingrediente.getUnidad() + "\n");
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         Menu_Interfaz ventana2 = new Menu_Interfaz();
@@ -135,6 +241,7 @@ public class Pedido extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(Pedido.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -146,10 +253,11 @@ public class Pedido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVolver;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JComboBox<String> cbTorta;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSpinner jSpinner1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTextField txtCantidad;
+    private javax.swing.JTextArea txtInf;
     // End of variables declaration//GEN-END:variables
 }
