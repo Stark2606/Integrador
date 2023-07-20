@@ -89,7 +89,7 @@ public class Pedido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnMostrar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtInf = new javax.swing.JTextArea();
@@ -97,17 +97,19 @@ public class Pedido extends javax.swing.JFrame {
         cbTorta = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         spCantidad = new javax.swing.JSpinner();
+        btnImprimir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jButton1.setText("mostrar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnMostrar.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        btnMostrar.setText("Mostrar");
+        btnMostrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnMostrarActionPerformed(evt);
             }
         });
-        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(538, 226, 196, 88));
+        getContentPane().add(btnMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(538, 226, 196, 88));
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -117,6 +119,7 @@ public class Pedido extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 350, 350));
 
+        btnVolver.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         btnVolver.setText("Volver");
         btnVolver.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,12 +139,16 @@ public class Pedido extends javax.swing.JFrame {
         spCantidad.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
         jPanel1.add(spCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 110, 110, 50));
 
+        btnImprimir.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        btnImprimir.setText("Imprimir");
+        jPanel1.add(btnImprimir, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 390, 180, 70));
+
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 600));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMostrarActionPerformed
         /*txtInf.setText("");
         String id_torta = cbTorta.getSelectedItem().toString();
         Double cant = Double.parseDouble(txtCantidad.getText().trim());
@@ -216,7 +223,7 @@ public class Pedido extends javax.swing.JFrame {
             txtInf.append(ingrediente.getNombre() + "   " + ingrediente.getCantidad() + " " + ingrediente.getUnidad() + "\n");
         }
         Limpiar();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnMostrarActionPerformed
 
     private void btnVolverActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVolverActionPerformed
         Menu_Interfaz ventana2 = new Menu_Interfaz();
@@ -265,9 +272,10 @@ public class Pedido extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnImprimir;
+    private javax.swing.JButton btnMostrar;
     private javax.swing.JButton btnVolver;
     private javax.swing.JComboBox<String> cbTorta;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
