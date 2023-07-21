@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9e40c620-8695-4ba7-9905-4fdc15d81b32">
+	<queryString language="SQL">
+		<![CDATA[SELECT * FROM reporte;]]>
+	</queryString>
+	<field name="ingrediente" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="cantidad" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="unidad" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band/>
+	</background>
+	<title>
+		<band height="72">
+			<frame>
+				<reportElement mode="Opaque" x="-20" y="-20" width="595" height="92" backcolor="#006699" uuid="6d430b5a-4a85-4f7d-8659-771f55d00fa1"/>
+				<staticText>
+					<reportElement x="20" y="20" width="234" height="43" forecolor="#FFFFFF" uuid="d62fd791-24ff-47bd-8832-eacb8b37231d"/>
+					<textElement>
+						<font size="34" isBold="true"/>
+					</textElement>
+					<text><![CDATA[TITLE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="395" y="43" width="180" height="20" forecolor="#FFFFFF" uuid="14591d7f-24d9-46fc-9efc-67c47cd743d8"/>
+					<textElement textAlignment="Right">
+						<font size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Add a description here]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="13"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="21">
+			<line>
+				<reportElement x="-20" y="20" width="595" height="1" forecolor="#666666" uuid="c1d87c40-3f26-4afc-9695-a822f4f78426"/>
+			</line>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="185" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="32933683-1850-43b7-957b-eead3d3a458e"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ingrediente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="185" y="0" width="185" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="6f78198b-0a50-4118-a27d-7c5314b268f3"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="370" y="0" width="185" height="20" forecolor="#006699" backcolor="#E6E6E6" uuid="1899e2fe-98e8-4926-ab9b-673a2431f5cf"/>
+				<textElement textAlignment="Center">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[unidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20">
+			<line>
+				<reportElement positionType="FixRelativeToBottom" x="0" y="19" width="555" height="1" uuid="bb72bad3-d85b-4b81-b17b-000df64a1e0b"/>
+			</line>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="0" y="0" width="185" height="20" uuid="858c5e99-1243-470b-9159-a51c28a6b9da"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ingrediente}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="185" y="0" width="185" height="20" uuid="a5ecfe7d-d278-4076-97d9-311b281a2767"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cantidad}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="370" y="0" width="185" height="20" uuid="c8f0f11a-d6da-49ef-b2ac-1ed4d61776e3"/>
+				<textElement>
+					<font size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{unidad}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band/>
+	</columnFooter>
+	<pageFooter>
+		<band height="17">
+			<textField>
+				<reportElement mode="Opaque" x="0" y="4" width="515" height="13" backcolor="#E6E6E6" uuid="e18886af-50fc-4f00-a98a-d9bc473e7296"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement mode="Opaque" x="515" y="4" width="40" height="13" backcolor="#E6E6E6" uuid="803c9fbc-6537-4c76-91e8-2b140babbc28"/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="0" y="4" width="100" height="13" uuid="906e388b-e915-4b30-ac5f-55b7ab7b4ab3"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>
